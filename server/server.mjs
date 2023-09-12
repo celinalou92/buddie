@@ -6,7 +6,7 @@ import http from "http";
 import cors from "cors";
 import bodyParser from "body-parser";
 import { schemas } from "./schemas/index.js";
-
+import { authMiddleware } from "./utils/auth.js";
 const app = express();
 const httpServer = http.createServer(app);
 
@@ -21,7 +21,13 @@ const server = new ApolloServer({
 
 await server.start();
 
-app.use(cors(), bodyParser.json(), expressMiddleware(server));
+app.use(
+  cors(),
+  bodyParser.json(),
+  expressMiddleware(server, {
+    context: authMiddleware,
+  })
+);
 
 await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
 console.log(`🚀 Server ready at http://localhost:4000`);
