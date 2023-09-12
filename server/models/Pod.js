@@ -1,4 +1,4 @@
-const { Schema } = require('mongoose');
+import { Schema, model } from 'mongoose';
  
 const podSchema = new Schema(
     {
@@ -11,4 +11,7 @@ const podSchema = new Schema(
     }
 )
 
-module.exports = podSchema
+const Pod = model('Pod', podSchema);
+
+
+export default Pod;

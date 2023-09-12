@@ -1,5 +1,5 @@
-const { Schema, model } = require('mongoose');
-const bcrypt = require('bcrypt');
+import { Schema, model } from 'mongoose';
+import { hash, compare } from 'bcrypt';
 
 const userSchema = new Schema(
   {
@@ -58,14 +58,14 @@ const userSchema = new Schema(
 userSchema.pre('save', async function(next) {
   if (this.isNew || this.isModified('password')) {
     const saltRounds = 10;
-    this.password = await bcrypt.hash(this.password, saltRounds);
+    this.password = await hash(this.password, saltRounds);
   }
   next();
 });
 
 // compare the incoming password with the hashed password
 userSchema.methods.isCorrectPassword = async function(password) {
-  return bcrypt.compare(password, this.password);
+  return compare(password, this.password);
 };
 
 userSchema.virtual('friendCount').get(function() {
@@ -74,4 +74,4 @@ userSchema.virtual('friendCount').get(function() {
 
 const User = model('User', userSchema);
 
-module.exports = User;
+export default User;

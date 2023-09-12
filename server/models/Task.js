@@ -1,5 +1,5 @@
-const { Schema, model } = require('mongoose');
-const dateFormat = require('../utils/dateFormat');
+import { Schema, model } from 'mongoose';
+import dateFormatter from '../utils/dateFormat.js';
 
 
 const taskSchema = new Schema(
@@ -27,11 +27,11 @@ const taskSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now,
-            get: timestamp => dateFormat(timestamp)
+            get: timestamp => dateFormatter(timestamp)
         }
     }
 )
 
 const Task = model('Task', taskSchema);
 
-module.exports = Task;
+export default Task;

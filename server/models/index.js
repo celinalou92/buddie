@@ -1,6 +1,7 @@
-const User = require('./User');
-const Message = require('./Message');
-const Pod = require('./Pod');
-const Task = require('./Task')
+import User from './User.js';
+import Message from './Message.js';
+import Pod from './Pod.js';
+import Task from './Task.js';
 
-module.exports = { User, Message, Task, Pod };
+const models = { User, Message, Task, Pod };
+export default models;
