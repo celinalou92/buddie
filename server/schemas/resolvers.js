@@ -35,7 +35,7 @@ const resolvers = {
     // -------------- get all users -------------- //
     users: async () => {
       return User.find()
-        .select("-__v -password")
+        // .select("-__v -password")
         .populate("friends")
         .populate("tasks");
     },
@@ -50,7 +50,7 @@ const resolvers = {
     // -------------- get a user by username -------------- //
     user: async (parent, { username }) => {
       return User.findOne({ username })
-        .select("-__v -password")
+        // .select("-__v -password")
         .populate("friends")
         .populate("tasks");
     },
@@ -58,9 +58,10 @@ const resolvers = {
 
   Mutation: {
     addUser: async (parent, args) => {
+      console.log("creating user", args)
       const user = await User.create(args);
       const token = signToken(user);
-
+      console.log("user created", token,user)
       return { token, user };
     },
 
