@@ -9,13 +9,30 @@ This application is a social media platform that allows users to manage their ho
 - [Installation](#installation)
 - [Usage](#usage)
 - [License](#license)
+const clusterKey = process.env.CLUSTER_KEY;
+const clusterName = process.env.CLUSTER_NAME;
+const dbUserName = process.env.DB_USERNAME;
 
 ## Installation
+1. Create Atlas DB and get CLUSTER_USER_KEY, CLUSTER_NAME, and DB_USERNAME
+   1. Save these to preffered env variable set up, here we use dotenv
+2. Client 
+   1. Install dependencies
+    ```npm install ```
+3. Server
+   1.  Install dependencies
+    ```npm install ```
 
-Clone the Repo\
-Run npm install in your terminal\
-Run server.js\
-https://buddie-app.herokuapp.com/
+## Run Buddie 
+1. Client 
+   1. Install dependencies and start front end locally
+    ```npm run start ```
+2. Server
+   1. Run Node server and connect to database 
+    - You will need the Atlas USER
+    ```npm run start ```
+
+
 
 ## Usage
 
