@@ -13,7 +13,6 @@ import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
-
 const Login = (props) => {
   const [formState, setFormState] = useState({ email: "", password: "" });
 
@@ -38,8 +37,8 @@ const Login = (props) => {
       });
 
       Auth.login(data.login.token);
-    } catch (e) {
-      console.error(e);
+    } catch (error) {
+      return error;
     }
   };
 
@@ -65,7 +64,6 @@ const Login = (props) => {
     <Container component="main" maxWidth="xs" className="credCards">
       <CssBaseline />
       <div className={classes.paper}>
-
         <form className={classes.form} noValidate onSubmit={handleFormSubmit}>
           <TextField
             variant="outlined"
@@ -97,14 +95,19 @@ const Login = (props) => {
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
-          {error && <div>Login failed</div>}
+          {error && (
+            <div>
+              {`
+             ${error.message}
+            `}
+            </div>
+          )}
           <Button
             type="submit"
             fullWidth
             variant="contained"
-            className={classes.submit} 
-            color="primary" 
-            
+            className={classes.submit}
+            color="primary"
           >
             LOG IN
           </Button>
@@ -115,19 +118,16 @@ const Login = (props) => {
               </Link>
             </Grid>
             <Grid item>
-              <Link href="/signup"  variant="body2">
+              <Link href="/signup" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
           </Grid>
         </form>
       </div>
-      <Box mt={8}>
-      
-      </Box>
+      <Box mt={8}></Box>
     </Container>
   );
 };
 
-// bobs token "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7I…TUzfQ.2Z3c9Q8Wr3ZYgp2bW136SVWZOLpzbxNLC0uphTjelu0"
 export default Login;

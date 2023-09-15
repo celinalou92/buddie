@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Auth from "../../utils/auth";
+import buddie_logo from "../../assets/images/buddie_logo.png";
 
 const Header = () => {
   const logout = (event) => {
@@ -13,7 +14,7 @@ const Header = () => {
       <div className="container flex-row justify-space-between-lg justify-center align-center">
         <Link to="/dashboard">
           <img
-            src={require(`../../assets/images/buddie_logo3.png`).default}
+            src={buddie_logo}
             alt="buddie logo"
             className="buddieLogo"
             key="logoBuddie"

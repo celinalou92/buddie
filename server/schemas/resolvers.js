@@ -50,7 +50,7 @@ const resolvers = {
     // -------------- get a user by username -------------- //
     user: async (parent, { username }) => {
       return User.findOne({ username })
-        // .select("-__v -password")
+        .select("-__v -password")
         .populate("friends")
         .populate("tasks");
     },
@@ -58,10 +58,8 @@ const resolvers = {
 
   Mutation: {
     addUser: async (parent, args) => {
-      console.log("creating user", args)
       const user = await User.create(args);
       const token = signToken(user);
-      console.log("user created", token,user)
       return { token, user };
     },
 
@@ -69,17 +67,17 @@ const resolvers = {
       const user = await User.findOne({ email });
 
       if (!user) {
-        throw new Error("Incorrect credentials");
+        throw new Error("Incorrect credentials: No user associated to this email");
       }
 
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
-        throw new Error("Incorrect credentials");
+        throw new Error("Incorrect credentials: Incorrect Password");
       }
 
       const token = signToken(user);
-      return { token, user };
+      return { token, user, error };
     },
     addMessage: async (parent, args, context) => {
       if (context.user) {
