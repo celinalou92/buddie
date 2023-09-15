@@ -1,4 +1,3 @@
-// const mongoose = require('mongoose');
 import 'dotenv/config'
 
 const clusterUserKey = process.env.CLUSTER_USER_KEY;
@@ -13,10 +12,30 @@ const dbURI = "mongodb+srv://" + clusterUserInfo + ".tpgqs.mongodb.net/?retryWri
 
 
 export const runDBClient = async() => {
+  console.log(      `
+  =======================
+  Database Connecting... 
+  =======================
+  `
+  )
   try {
-    await mongoose.connect(dbURI);
+    await mongoose.connect(dbURI).then(() => {
+      console.log(      `
+      =======================
+      Database Connected!
+      Cluster:${clusterName} User: ${dbUserName}
+      =======================
+      `
+      )
+    })
   } catch (error) {
-    handleError(error);
+    console.log(
+      `
+      =======================
+      Database Error: ${error}
+      =======================
+      `
+      )
   }
 }
 

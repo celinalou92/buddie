@@ -9,9 +9,6 @@ This application is a social media platform that allows users to manage their ho
 - [Installation](#installation)
 - [Usage](#usage)
 - [License](#license)
-const clusterKey = process.env.CLUSTER_KEY;
-const clusterName = process.env.CLUSTER_NAME;
-const dbUserName = process.env.DB_USERNAME;
 
 ## Installation
 1. Create Atlas DB and get CLUSTER_USER_KEY, CLUSTER_NAME, and DB_USERNAME
@@ -29,31 +26,24 @@ const dbUserName = process.env.DB_USERNAME;
     ```npm run start ```
 2. Server
    1. Run Node server and connect to database 
-    - You will need the Atlas USER
+    - You will need the Atlas CLUSTER_USER_KEY, CLUSTER_NAME, and DB_USERNAME
     ```npm run start ```
 
 
 
 ## Usage
 
-This program is available and open to all users
+N/A
 
 ## License
 
 Currently does not have any license
 
-## Contributing
-
-No Active Contribution
 
 ## Tests
 
 local test
 
 ## Questions
+GitHub: https://github.com/celinalou92
 
-GitHub: https://github.com/Unity7 \
-GitHub: https://github.com/celinalou92 \
-GitHub: https://github.com/ChelcieDeAlmeida
-
-https://buddie-app.herokuapp.com/
