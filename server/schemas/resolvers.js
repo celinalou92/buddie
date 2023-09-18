@@ -77,8 +77,9 @@ const resolvers = {
       }
 
       const token = signToken(user);
-      return { token, user, error };
+      return { token, user };
     },
+    
     addMessage: async (parent, args, context) => {
       if (context.user) {
         const message = await Message.create({

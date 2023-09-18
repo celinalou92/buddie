@@ -30,13 +30,12 @@ const AuthService = {
     
     // retrieve token from localStorage
     getToken() {
-        console.log("getting user token")
         // Retrieves the user token from localStorage
         return localStorage.getItem('id_token');
     },
     
     // set token to localStorage and reload page to homepage
-    login(idToken) {
+    handleLogin(idToken) {
        console.log("Logging in, saving token")
         // Saves user token to localStorage
         localStorage.setItem('id_token', idToken);

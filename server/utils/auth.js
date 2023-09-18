@@ -33,7 +33,6 @@ export function authMiddleware({ req }) {
   } catch {
     console.log('Invalid token');
   }
-
   // return updated request object
   return req;
 }
