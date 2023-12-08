@@ -111,7 +111,9 @@ const resolvers = {
       throw new Error("You need to be logged in!");
     },
     addTask: async (parent, args, context) => {
+      console.log("Add TASK ===================================", context.user)
       if (context.user) {
+        
         const task = await Task.create({
           ...args,
           username: context.user.username,
@@ -137,7 +139,9 @@ const resolvers = {
       }
       throw new Error("You need to be logged in!");
     },
+
     updateTask: async (parent, args, context) => {
+
       if (context.user) {
         // empty object to hold what is being passed in
         const updatedField = {};

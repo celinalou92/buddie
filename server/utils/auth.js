@@ -9,6 +9,7 @@ export function signToken({ username, email, _id }) {
 
   return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
 }
+
 export function authMiddleware({ req }) {
   // allows token to be sent via req.body, req.query, or headers
   let token = req.body.token || req.query.token || req.headers.authorization;
@@ -26,13 +27,13 @@ export function authMiddleware({ req }) {
     return req;
   }
 
-  try {
-    // decode and attach user data to request object
-    const { data } = verify(token, secret, { maxAge: expiration });
-    req.user = data;
-  } catch {
-    console.log('Invalid token');
-  }
-  // return updated request object
+  // decode and attach user data to request object
+  const verifyToken = jwt.verify(token, secret, (err, vt) => {
+    if (err) {
+      console.log("Invalid token",err)
+    }
+    return vt;
+  });
+  req.user = verifyToken;
   return req;
-}
+};
