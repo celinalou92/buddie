@@ -5,7 +5,9 @@ import {
   ApolloProvider,
   ApolloClient,
   InMemoryCache,
-  createHttpLink,
+  HttpLink,
+  ApolloLink,
+  concat
 } from "@apollo/client";
 // So we just imported a few key pieces to the application—let's explain what each will accomplish for us:
 
@@ -14,7 +16,7 @@ import {
 // InMemoryCache enables the Apollo Client instance to cache API response data so that we can perform requests more efficiently.
 // createHttpLink allows us to control how the Apollo Client makes a request. Think of it like middleware for the outbound network requests.
 
-import { setContext } from "@apollo/client/link/context";
+// import { setContext } from "@apollo/client/link/context";
 // get token from local storage using this above
 
 import Header from './components/Header';
@@ -27,43 +29,69 @@ import Taskboard from './pages/Taskboard';
 import SingleMessage from "./pages/SingleMessage";
 
 
-const httpLink = createHttpLink({
-  uri: "/graphql",
-});
 
-const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem("id_token");
-  return {
+
+// =============== Old Code ==================//
+
+// const httpLink = createHttpLink({
+//   uri: "/graphql",
+// });
+
+// const authLink = setContext((_, { headers }) => {
+//   const token = localStorage.getItem("id_token");
+//   return {
+//     headers: {
+//       ...headers,
+//       authorization: token ? `Bearer ${token}` : "",
+//     },
+//   };
+// });
+
+
+// const client = new ApolloClient({
+//   request: operation => {
+//     const token = localStorage.getItem('id_token');
+
+//     operation.setContext({
+//       headers: {
+//         authorization: token ? `Bearer ${token}` : ''
+//       }
+//     });
+//   },
+//   uri: httpLink,
+//   link: authLink.concat(httpLink),
+//   cache: new InMemoryCache(),
+// });
+
+// =============== End Old Code ==================//
+
+
+
+const httpLink = new HttpLink({ uri: 'http://localhost:4000' });
+
+let token = localStorage.getItem("id_token");
+
+const authMiddleware = new ApolloLink((operation, forward) => {
+  // add the authorization to the headers
+  operation.setContext(({ headers = {} }) => ({
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : "",
-    },
-  };
-});
-
-
+      authorization: token ? `Bearer ${token}` : null,
+    }
+  }));
+  return forward(operation);
+})
 
 const client = new ApolloClient({
-  request: operation => {
-    const token = localStorage.getItem('id_token');
-
-    operation.setContext({
-      headers: {
-        authorization: token ? `Bearer ${token}` : ''
-      }
-    });
-  },
-  uri: httpLink,
-  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
+  link: concat(authMiddleware, httpLink),
 });
+
 
 // With the preceding code, we first establish a new link to the GraphQL server at its /graphql endpoint with createHttpLink().
 // After we create the link, we use the ApolloClient() constructor to instantiate the Apollo Client instance and create the connection to the API endpoint. We also instantiate a new cache object using new InMemoryCache().
 
 function App() {
-  
-  
   return (
     <ApolloProvider client={client}>
       <Router>
