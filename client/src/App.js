@@ -1,5 +1,4 @@
 import React from "react";
-// reacter router dom
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import {
   ApolloProvider,
@@ -76,7 +75,7 @@ const authMiddleware = new ApolloLink((operation, forward) => {
   operation.setContext(({ headers = {} }) => ({
     headers: {
       ...headers,
-      authorization: token ? token : null,
+      authorization: token ? token : " ",
     }
   }));
   return forward(operation);
