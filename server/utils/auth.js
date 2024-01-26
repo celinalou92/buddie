@@ -26,5 +26,6 @@ export function authMiddleware({ req }) {
     return vt;
   });
   req.user = verifyToken;
-  return req;
+  const loginContext = req.user;
+  return loginContext;
 };
