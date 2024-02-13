@@ -153,6 +153,8 @@ const resolvers = {
 
     updateTask: async (parent, args, context) => {
       const userData = context.data
+      const taskId = args._id
+
       if (userData.username) {
         // empty object to hold what is being passed in
         const updatedField = {};
@@ -162,8 +164,11 @@ const resolvers = {
         if (args.assignedID != null) {
           updatedField.assignedID = args.assignedID;
         }
+
+        console.log("taskId args",taskId)
+
         const task = await Task.findOneAndUpdate(
-          { _id: args._id },
+          { _id: taskId },
           updatedField,
           { new: true }
         );
