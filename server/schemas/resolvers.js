@@ -154,18 +154,15 @@ const resolvers = {
     updateTask: async (parent, args, context) => {
       const userData = context.data
       const taskId = args._id
+      const updatedField = {};
 
       if (userData.username) {
-        // empty object to hold what is being passed in
-        const updatedField = {};
         if (args.taskStatus != null) {
           updatedField.taskStatus = args.taskStatus;
         }
         if (args.assignedID != null) {
           updatedField.assignedID = args.assignedID;
         }
-
-        console.log("taskId args",taskId)
 
         const task = await Task.findOneAndUpdate(
           { _id: taskId },
@@ -174,6 +171,7 @@ const resolvers = {
         );
         return task;
       }
+      
       throw new Error("You need to be logged in!");
     },
     addReply: async (parent, { messageId, replyBody }, context) => {

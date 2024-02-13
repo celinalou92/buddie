@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@apollo/client';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { UPDATE_TASK } from '../utils/mutations';
 import { QUERY_USERS } from '../utils/queries';
 import { makeStyles } from '@material-ui/core/styles';
@@ -17,11 +17,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const AssignMenu = ({ task, setShouldUpdate }) => {
+const AssignMenu = ({ task }) => {
     // ----------------------- styles ---------------------------- //
     const classes = useStyles();
     // ---------------------- get user data ---------------------- //
-    const { loading, data } = useQuery(QUERY_USERS);
+    const { data } = useQuery(QUERY_USERS);
     const users = data?.users || [];
 
     // ----------- set state for who is assigned the task --------- //
@@ -33,10 +33,13 @@ const AssignMenu = ({ task, setShouldUpdate }) => {
     // ---------------------- handle select's onChange ---------------------- //
     const handleChange = (e) => {
         // update assigned user based on form input 
-        const assign = e.target.value
+        const assign = e.target.value;
+        if(error){
+           return  console.log("Assign Toggle Error", error)
+        } 
         setAssign(assign)
         // update backend
-        updateAssign({ variables: { assignedID: assign, _id: task._id } })
+        updateAssign({ variables: { _id: task._id , assignedID: assign} })
         console.log(`
         =====================
         OnChange Assigned To
@@ -46,23 +49,6 @@ const AssignMenu = ({ task, setShouldUpdate }) => {
         =====================
         `)
     };
-
-    // ---------------------- Update back end ---------------------- //
-    // this wont work until I can figure out how to get the taskID
-    // useEffect(() => {
-    //     async function updateState() {
-        // how do I pass in taskID and status?
-    //         const response = await updateState()
-    //         console.log(`
-    //             =====================
-    //             OnChange Assigned To
-    //             =====================
-    //             Assigned To ${assign}
-    //             =====================
-    //             `)
-    //     }
-    //    updateState()
-    // }, [assign]);
 
     return (
         <select

@@ -1,59 +1,28 @@
 import { useMutation } from '@apollo/client';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { UPDATE_TASK } from '../utils/mutations';
 
-const Toggler = ({ task, setShouldUpdate }) => {
+const Toggler = ({ task }) => {
+
+    const [updateStatus, {error}] = useMutation(UPDATE_TASK)
     
-    // --------- definie mutation to update status to in gql ---------- //
-    const [updateState] = useMutation(UPDATE_TASK, {
-        onCompleted: () => {
-            setShouldUpdate(true)
-        }
-    })
-
     // ---------------------- handle onClick ---------------------- //
-    const toggleStatus = (variables) => {
-        // test variables are passed correctly 
-        console.log(
-            ` 
-            =====================
-            Variables
-            =====================
-            ${variables}
-            =====================
-        `)
-        // test task id is available
-        console.log(
-            ` 
-            =====================
-            Task's ID
-            =====================
-            ${task._id}
-            =====================
-        `)
+    const toggleStatus = () => {
+        const currentStatus = task.taskStatus;
+        const newStatus = !currentStatus;
 
-        // change status to opposite of what it was
-        const newStatus = !variables.taskStatus
-        
-        // ---------------------- Update back end ---------------------- //
-        updateState({ variables: { taskStatus: newStatus, _id: task._id } })
+        updateStatus({ variables: { _id: task._id, taskStatus: newStatus} })
 
-        // check that task status is changed
-        console.log(
-            ` 
-          =====================
-          Current Task Status
-          =====================
-          ${task.taskStatus}
-          =====================
-          `)
+        if(error){
+            return  console.log
+            ("Toggle Error", error)
+         } 
     }
 
-    // ---------------------- Update back end ---------------------- //
-
-
     return (
-        <button className="statusBtn" onClick={() => toggleStatus({ taskStatus: task.taskStatus })}>
+        <button className="statusBtn" 
+        onClick={toggleStatus}
+        >
             {task.taskStatus ? "👍🏼" : "👎🏼"}
         </button>
     )

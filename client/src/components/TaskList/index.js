@@ -75,13 +75,13 @@ const TaskList = ({ tasks, username, setShouldUpdate }) => {
                   <p className="taskText">{task.taskText}</p>
                 </Grid>
                 <Grid item xs={4} sm={4} md={1} className="taskItem">
-                  <Toggler task={task} setShouldUpdate={setShouldUpdate}/>
+                  <Toggler task={task} />
                 </Grid>
                 <Grid item xs={4} sm={4} md={1} className="taskItem">
-                  <AssignMenu task={task} setShouldUpdate={setShouldUpdate}/>
+                  <AssignMenu task={task} />
                 </Grid>
                 <Grid item xs={4} sm={4} md={1} className="taskItem">
-                  <DeleteButton task={task} setShouldUpdate={setShouldUpdate}/>
+                  <DeleteButton task={task} />
                 </Grid>
               </Grid>
         ))}
