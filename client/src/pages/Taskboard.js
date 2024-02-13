@@ -1,22 +1,16 @@
 import React, {useState, useEffect} from 'react';
-import { useParams } from 'react-router-dom';
 import TaskList from '../components/TaskList';
 import TaskForm from '../components/TaskForm';
 import { useLazyQuery } from '@apollo/client';
 import { QUERY_TASKS } from '../utils/queries';
-// import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
-
+import AuthService from '../utils/auth';
 
 const Taskboard = () => {
   // -------------------------- Set State ------------------------- //
 
   // set state to use later in useEffect to tell it to rerender
   const [shouldUpdate, setShouldUpdate] = useState(false)
-
-
-  const { username: userParam } = useParams();
-  
   // query for tasks
   const[getAllTasks, { loading, data}] = useLazyQuery(
     QUERY_TASKS,
@@ -24,35 +18,32 @@ const Taskboard = () => {
     {fetchPolicy: "no-cache"}
   )
 
+  const tasks = data?.tasks || [];
+  const user = AuthService.loggedIn();
+
   // setting up useEffect that will be passed down as props to be used in other components 
   useEffect(() => {
     // when we rerender get tasks again 
     getAllTasks()
     // reset state back to false 
     setShouldUpdate(false)
-  }, [shouldUpdate])
-
-  
-  // const { loading, data } = useQuery(QUERY_TASKS);
-  const tasks = data?.tasks || [];
-  const user = data?.me || data?.user || {};
+  }, [getAllTasks, shouldUpdate])
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
   // Question: why isn't this seeing that I'm logged in?
-  // if (!user?.username) {
-  //   return (
-  //     <h4>
-  //       You need to be logged in to see this page. Use the navigation links above to sign up or log in!
-  //     </h4>
-  //   );
-  // }
+  if (!user || undefined) {
+    return (
+      <h4>
+        You need to be logged in to see this page. Use the navigation links above to sign up or log in!
+      </h4>
+    );
+  }
 
   return (
     <div>
-      {/* <CssBaseline/> */}
       <Container maxWidth="lg">
         <h1>Viewing Your Pod's Taskboard.</h1>
         <br/>
@@ -62,7 +53,7 @@ const Taskboard = () => {
           <TaskList setShouldUpdate={setShouldUpdate} tasks={tasks} username={`${user.username}'s tasks...`}/>
         )}
           <br/>
-        <TaskForm setShouldUpdate={setShouldUpdate} tasks={tasks}/>
+        <TaskForm setShouldUpdate={setShouldUpdate}/>
       </Container>
     </div> 
   );
