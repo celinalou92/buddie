@@ -9,7 +9,6 @@ const DeleteButton = ({task, setShouldUpdate}) => {
 
     // --------- definie mutation to update status to in gql ---------- //
     const [deleteTask] = useMutation(DELETE_TASK, {
-
         onCompleted: () => {
             setShouldUpdate(true)
         }

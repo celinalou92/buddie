@@ -19,7 +19,7 @@ const messageSchema = new Schema(
       type: String,
       required: true,
     },
-    replies: [replySchema],
+    // replies: [replySchema],
   },
   {
     toJSON: {
@@ -29,7 +29,10 @@ const messageSchema = new Schema(
 );
 
 messageSchema.virtual("replyCount").get(function () {
-  return this.replies.length;
+  if(replies){
+    return this.replies.length
+  }
+   return [];
 });
 
 const Message = model("Message", messageSchema);

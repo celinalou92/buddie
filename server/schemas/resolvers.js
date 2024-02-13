@@ -81,14 +81,16 @@ const resolvers = {
     },
     
     addMessage: async (parent, args, context) => {
-      if (context.user) {
+      const userData = context.data
+
+      if (userData.username) {
         const message = await Message.create({
           ...args,
-          username: context.user.username,
+          username: userData.username,
         });
-        await User.findByIdAndUpdate(
-          { _id: context.user._id },
-          { $push: { message: message._id } },
+
+        await User.findOneAndUpdate(
+          { _id: userData._id },
           { new: true }
         );
         return message;
@@ -96,13 +98,14 @@ const resolvers = {
       throw new Error("You need to be logged in!");
     },
     deleteMessage: async (parent, args, context) => {
-      if (context.user) {
+      const userData = context.data
+      if (userData.username) {
         const message = await Message.findOneAndRemove({
           ...args,
-          username: context.user.username,
+          username: userData.username,
         });
         await User.findByIdAndUpdate(
-          { _id: context.user._id },
+          { _id: userData._id },
           { $pull: { message: message._id } }
           // { new: true }
         );
@@ -114,7 +117,6 @@ const resolvers = {
     addTask: async (parent, args, context) => {
       const userData = context.data
       
-      // only returning { taskText: 'i' } for args 
       if (userData.username) {
         const task = await Task.create({
           ...args,
@@ -122,14 +124,13 @@ const resolvers = {
         });
 
         await task.save();
-
-        console.log("Task.create ===================================", task)
-        
-        // await User.findByIdAndUpdate(
+      
+        // await User.findOneAndUpdate(
         //   { _id: userData._id },
         //   { $push: { tasks: task._id } },
         //   { new: true }
         // );
+
         return task;
       }
       throw new Error("You need to be logged in!");
@@ -137,8 +138,6 @@ const resolvers = {
 
     deleteTask: async (parent, args, context) => {
       const userData = context.data
-
-      console.log("================== delete task args",args)
 
       if (userData.username) {
         const task = await Task.findOneAndRemove({ _id: args._id });
@@ -153,8 +152,8 @@ const resolvers = {
     },
 
     updateTask: async (parent, args, context) => {
-
-      if (context.user) {
+      const userData = context.data
+      if (userData.username) {
         // empty object to hold what is being passed in
         const updatedField = {};
         if (args.taskStatus != null) {
@@ -173,11 +172,12 @@ const resolvers = {
       throw new Error("You need to be logged in!");
     },
     addReply: async (parent, { messageId, replyBody }, context) => {
-      if (context.user) {
+      const userData = context.data
+      if (userData.username) {
         const updatedMessage = await Message.findOneAndUpdate(
           { _id: messageId },
           {
-            $push: { replies: { replyBody, username: context.user.username } },
+            $push: { replies: { replyBody, username: userData.username } },
           },
           { new: true, runValidators: true }
         );
@@ -187,10 +187,12 @@ const resolvers = {
 
       throw new Error("You need to be logged in!");
     },
+
     addFriend: async (parent, { friendId }, context) => {
-      if (context.user) {
+      const userData = context.data
+      if (userData.username) {
         const updatedUser = await User.findOneAndUpdate(
-          { _id: context.user._id },
+          { _id: userData._id },
           { $addToSet: { friends: friendId } },
           { new: true }
         ).populate("friends");

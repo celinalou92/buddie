@@ -40,6 +40,12 @@ const userSchema = new Schema(
         ref: 'Task'
       }
     ],
+    messages: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Message'
+      }
+    ],
     friends: [
       {
         type: Schema.Types.ObjectId,
