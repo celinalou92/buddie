@@ -110,20 +110,26 @@ const resolvers = {
       }
       throw new Error("You need to be logged in!");
     },
+
     addTask: async (parent, args, context) => {
-      console.log("Add TASK ===================================", context.user)
-      if (context.user) {
-        
+      const userData = context.data
+      
+      // only returning { taskText: 'i' } for args 
+      if (userData.username) {
         const task = await Task.create({
           ...args,
-          username: context.user.username,
+          username: userData.username,
         });
 
-        await User.findByIdAndUpdate(
-          { _id: context.user._id },
-          { $push: { tasks: task._id } },
-          { new: true }
-        );
+        await task.save();
+
+        console.log("Task.create ===================================", task)
+        
+        // await User.findByIdAndUpdate(
+        //   { _id: userData._id },
+        //   { $push: { tasks: task._id } },
+        //   { new: true }
+        // );
         return task;
       }
       throw new Error("You need to be logged in!");
@@ -131,6 +137,7 @@ const resolvers = {
     deleteTask: async (parent, args, context) => {
       if (context.user) {
         const task = await Task.findOneAndRemove({ _id: args._id });
+
         await User.findByIdAndUpdate(
           { _id: context.user._id },
           { $pull: { tasks: task._id } }

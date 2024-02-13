@@ -12,7 +12,7 @@ export function signToken({ username, email, _id }) {
 
 export function authMiddleware({ req }) {
   // allows token to be sent via req.body, req.query, or headers
-  let token = req.body.token || req.query.token || req.headers.authorization;
+  let token = req.headers.authorization;
 
   if (!token) {
     return req;
