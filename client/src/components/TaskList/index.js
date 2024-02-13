@@ -1,6 +1,4 @@
-import React, {useEffect, useState} from 'react';
-import { useQuery } from "@apollo/client";
-import { QUERY_USERS_TASKS } from '../../utils/queries';
+import React from 'react';
 // -----------------------------  components ----------------------------- //
 import Toggler from '../Toggler';
 import AssignMenu from '../AssignMenu';
@@ -40,12 +38,9 @@ const useStyles = makeStyles((theme) => ({
 
 const TaskList = ({ tasks, username, setShouldUpdate }) => {
   const classes = useStyles();
-  // if (!tasks.length) {
-  //   return <h3>No Tasks Yet</h3>;
-  // }
-
-
-
+  if (!tasks.length) {
+    return <h3>No Tasks Yet</h3>;
+  }
   return (
     <div>
       <Grid id="taskListContainer" container>

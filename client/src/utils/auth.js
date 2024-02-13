@@ -11,7 +11,7 @@ const AuthService = {
         // Checks if there is a saved token and it's still valid
         const token = this.getToken();
         // use type coersion to check if token is NOT undefined and the token is NOT expired
-        return !!token && !this.isTokenExpired(token);
+        return !!token && !this.isTokenExpired(token)? this.getProfile(token) : false;
     },
     
     // check if the token has expired

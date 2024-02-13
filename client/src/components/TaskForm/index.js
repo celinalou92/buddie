@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { ADD_TASK } from '../../utils/mutations';
+import { QUERY_TASKS  } from '../../utils/queries';
+import AuthService from '../../utils/auth';
 // because tasks are contained in a array we are going to use the query below to update the cache and return new tasks submitted in the form, QUERY_ME is being used on the profile page instead of Query taskS so we need to have both
-import { QUERY_TASKS } from '../../utils/queries';
 
 
-const TaskForm = ({tasks, setShouldUpdate}) => {
+
+const TaskForm = ({setShouldUpdate}) => {
     const [taskText, setText] = useState('');
     const [characterCount, setCharacterCount] = useState(0);
 
-    const [addtask, { error }] = useMutation(ADD_TASK, {
+    const [addTask, { error, data}] = useMutation(ADD_TASK, {
         update(cache, { data: { addtask } }) {
             try {
                 // read what's currently in the cache
@@ -29,6 +31,10 @@ const TaskForm = ({tasks, setShouldUpdate}) => {
         }
     });
 
+    // const  [addTask, { taskData, error }] = useMutation(ADD_TASK);
+    const userData = AuthService.loggedIn();
+
+
     // update state based on form input changes
     const handleChange = event => {
         if (event.target.value.length <= 280) {
@@ -40,19 +46,26 @@ const TaskForm = ({tasks, setShouldUpdate}) => {
     // submit form
     const handleFormSubmit = async event => {
         event.preventDefault();
+
+      console.log("========AddTask Data=========")
+      console.log(data)
+      console.log("=============================")
       
+      console.log("========UserData Data=========")
+      console.log(userData)
+      console.log("=============================")
+
         try {
           // add task to database
-          await addtask({
-            variables: { taskText }
-          });
-      
+          await addTask({
+            variables: { taskText:taskText }
+          })}
+          catch (error) {
+            console.log(error)
+          }
           // clear form value
           setText('');
           setCharacterCount(0);
-        } catch (e) {
-          console.error(e);
-        }
     };
 
     return (
