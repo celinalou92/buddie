@@ -134,12 +134,17 @@ const resolvers = {
       }
       throw new Error("You need to be logged in!");
     },
+
     deleteTask: async (parent, args, context) => {
-      if (context.user) {
+      const userData = context.data
+
+      console.log("================== delete task args",args)
+
+      if (userData.username) {
         const task = await Task.findOneAndRemove({ _id: args._id });
 
         await User.findByIdAndUpdate(
-          { _id: context.user._id },
+          { _id: userData._id },
           { $pull: { tasks: task._id } }
         );
         return task;
