@@ -36,7 +36,8 @@ const useStyles = makeStyles((theme) => ({
 // -----------------------------  task list styles ----------------------------- //
 
 
-const TaskList = ({ tasks, username, setShouldUpdate }) => {
+const TaskList = ({ tasks }) => {
+
   const classes = useStyles();
   if (!tasks.length) {
     return <h3>No Tasks Yet</h3>;

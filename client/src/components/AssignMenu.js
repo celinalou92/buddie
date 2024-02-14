@@ -52,7 +52,7 @@ const AssignMenu = ({ task }) => {
 
     return (
         <select
-            labelId="assignSelect"
+            labelid="assignSelect"
             id="assignSelect"
             onChange={handleChange}
             value={assign}
