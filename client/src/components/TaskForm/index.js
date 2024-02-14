@@ -16,7 +16,7 @@ const TaskForm = () => {
         // read what's currently in the cache
         const { tasks } = cache.readQuery({ query: QUERY_TASKS });
 
-        // prepend the newest thought to the front of the array
+        // prepend the newest task to the front of the array
         // TODO: getting console err because missing field taskstatus which is added in the back end
         cache.writeQuery({
           query: QUERY_TASKS,
