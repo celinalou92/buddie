@@ -6,7 +6,7 @@ const clusterName = process.env.CLUSTER_NAME;
 const dbUserName = process.env.DB_USERNAME;
 
 
-const dbURI = process.env.DB_URI
+const dbURI = process.env.MONGODB_URI
 
 
 export const runDBClient = async() => {

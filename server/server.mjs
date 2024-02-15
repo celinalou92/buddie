@@ -13,8 +13,9 @@ import { runDBClient } from "./connection/index.js";
 
 const app = express();
 const httpServer = http.createServer(app);
-
+const PORT = process.env.PORT || 4000;
 const { typeDefs, resolvers } = schemas;
+
 const server = new ApolloServer({
   // The GraphQL schema
   typeDefs,
@@ -35,5 +36,5 @@ app.use(
   })
 );
 
-await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
-console.log(`🚀 Server ready at http://localhost:4000`);
+await new Promise((resolve) => httpServer.listen({ port: PORT }, resolve));
+console.log(`🚀 Server ready at ${{PORT}}`);
