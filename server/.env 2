@@ -1,4 +1,0 @@
-CLUSTER_KEY = "123abc"
-CLUSTER_NAME = "cluster0"
-DB_USERNAME = "celinalou92"
-DB_URI = "mongodb+srv://celinalou92:123abc@cluster0.tpgqs.mongodb.net/?retryWrites=true&w=majority";

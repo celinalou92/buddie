@@ -1,14 +1,12 @@
 import 'dotenv/config'
 
-const clusterUserKey = process.env.CLUSTER_USER_KEY;
 import mongoose from 'mongoose';
 
 const clusterName = process.env.CLUSTER_NAME;
 const dbUserName = process.env.DB_USERNAME;
 
-const clusterUserInfo = dbUserName + ":" + clusterUserKey + "@" + clusterName 
 
-const dbURI = "mongodb+srv://" + clusterUserInfo + ".tpgqs.mongodb.net/?retryWrites=true&w=majority";
+const dbURI = process.env.DB_URI
 
 
 export const runDBClient = async() => {
