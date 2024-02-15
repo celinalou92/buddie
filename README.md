@@ -31,9 +31,14 @@ This application is a social media platform that allows users to manage their ho
 
 
 
-## Usage
 
-N/A
+## Contributing 
+
+Deploy with Vercel CLI
+1. login with token
+   ```
+   vercel --token <yourtoken>
+   ```
 
 ## License
 
