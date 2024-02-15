@@ -34,10 +34,6 @@ This application is a social media platform that allows users to manage their ho
 
 ## Contributing 
 
-Deploy with Heroku CLI
-1. login 
-   ```heroku login```
-   A browser window will open to log into Heroku
 
 ## License
 
