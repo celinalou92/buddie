@@ -21,7 +21,8 @@ export const runDBClient = async() => {
       console.log(      `
       =======================
       Database Connected!
-      Cluster:${clusterName} User: ${dbUserName}
+      Cluster:${clusterName} 
+      User: ${dbUserName}
       =======================
       `
       )
