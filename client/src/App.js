@@ -19,7 +19,7 @@ import SingleMessage from "./pages/SingleMessage";
 
 
 
-const httpLink = new HttpLink({ uri: process.env.MONGODB_URI || 'http://localhost:4000' });
+const httpLink = new HttpLink({ uri: process.env.BUDDIE_BACKEND_API || 'http://localhost:4000' });
 
 let token = localStorage.getItem("id_token");
 
