@@ -17,8 +17,6 @@ import Signup from './pages/Signup';
 import Taskboard from './pages/Taskboard';
 import SingleMessage from "./pages/SingleMessage";
 
-
-
 const httpLink = new HttpLink({ uri: process.env.BUDDIE_BACKEND_API || 'http://localhost:4000' });
 
 let token = localStorage.getItem("id_token");
