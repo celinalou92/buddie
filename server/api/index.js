@@ -31,6 +31,8 @@ await server.start();
 app.use(
   cors(),
   bodyParser.json(),
+  res.setHeader('Content-Type', 'text/html'),
+  res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate'),
   expressMiddleware(server, {
     context: authMiddleware,
   })
