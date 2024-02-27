@@ -25,11 +25,9 @@ const server = new ApolloServer({
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 });
 
-
+runDBClient().catch(console.dir);
 
 const StartApolloServer = async (runDBClient, server) => {
-  runDBClient().catch(console.dir);
-
   await server.start();
 
   app.use(
@@ -45,6 +43,6 @@ const StartApolloServer = async (runDBClient, server) => {
   return console.log(`🚀 Server ready at ${{PORT}}`);
 };
 
-StartApolloServer(runDBClient, server);
+StartApolloServer(server);
 
 export default StartApolloServer;
