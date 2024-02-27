@@ -27,7 +27,7 @@ const server = new ApolloServer({
 
 runDBClient().catch(console.dir);
 
-const StartApolloServer = async (runDBClient, server) => {
+const StartApolloServer = async (server) => {
   await server.start();
 
   app.use(
