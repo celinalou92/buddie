@@ -16,6 +16,7 @@ const httpServer = http.createServer(app);
 const PORT = process.env.PORT || 4000;
 const { typeDefs, resolvers } = schemas;
 
+
 const server = new ApolloServer({
   // The GraphQL schema
   typeDefs,
@@ -24,19 +25,28 @@ const server = new ApolloServer({
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 });
 
-runDBClient().catch(console.dir);
 
-await server.start();
 
-app.use(
-  cors(),
-  bodyParser.json(),
-  res.setHeader('Content-Type', 'text/html'),
-  res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate'),
-  expressMiddleware(server, {
-    context: authMiddleware,
-  })
-);
+export const StartApolloServer = async (runDBClient, server) => {
+  runDBClient().catch(console.dir);
 
-await new Promise((resolve) => httpServer.listen({ port: PORT }, resolve));
-console.log(`🚀 Server ready at ${{PORT}}`);
+  await server.start();
+
+  app.use(
+    cors(),
+    bodyParser.json(),
+    expressMiddleware(server, {
+      context: authMiddleware,
+    })
+  );
+
+  await new Promise((resolve) => httpServer.listen({ port: PORT }, resolve));
+
+  return console.log(`🚀 Server ready at ${{PORT}}`);
+};
+
+StartApolloServer(runDBClient, server);
+
+
+
+
