@@ -6,9 +6,9 @@ import http from "http";
 import cors from "cors";
 import bodyParser from "body-parser";
 
-import { schemas } from "../schemas/index.js";
-import { authMiddleware } from "../utils/auth.js";
-import { runDBClient } from "../connection/index.js";
+import { schemas } from "./schemas/index.js";
+import { authMiddleware } from "./utils/auth.js";
+import { runDBClient } from "./connection/index.js";
 
 
 const app = express();
@@ -28,9 +28,9 @@ const server = new ApolloServer({
 
 
 const StartApolloServer = async (runDBClient, server) => {
-  runDBClient().catch(console.dir);
+  await runDBClient().catch(console.dir);
 
-  await server.start();
+  await server.start().catch(console.dir);
 
   app.use(
     cors(),
