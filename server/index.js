@@ -27,7 +27,7 @@ const server = new ApolloServer({
 
 
 
-export const StartApolloServer = async (runDBClient, server) => {
+const StartApolloServer = async (runDBClient, server) => {
   runDBClient().catch(console.dir);
 
   await server.start();
@@ -46,6 +46,8 @@ export const StartApolloServer = async (runDBClient, server) => {
 };
 
 StartApolloServer(runDBClient, server);
+
+export default StartApolloServer;
 
 
 
