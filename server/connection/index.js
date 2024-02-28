@@ -10,19 +10,6 @@ const dbURI = process.env.MONGODB_URI
 
 
 export const runDBClient = async() => {
-  let timeleft = 10;
-
-setInterval(function(){
- 
-    if(timeleft <= 0){
-    clearInterval(downloadTimer);
-    console.log("Finished") 
-  } else {
-    console.log(timeleft + " seconds remaining")
-  }
-  timeleft -= 1;
-}, 1000);
-
   console.log(      `
   =======================
   Database Connecting... 
