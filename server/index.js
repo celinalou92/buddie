@@ -48,6 +48,7 @@ const StartApolloServer = async () => {
 console.log(`Starting Database`);
 runDBClient();
 StartApolloServer();
+console.log(PORT)
 serverListen(PORT);
 
 export default StartApolloServer;
