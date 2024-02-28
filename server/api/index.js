@@ -11,24 +11,28 @@ import { authMiddleware } from "./utils/auth.js";
 import { runDBClient } from "./connection/index.js";
 
 
+const PORT = process.env.PORT || 4000;
 const app = express();
 const httpServer = http.createServer(app);
-const PORT = process.env.PORT || 4000;
 const { typeDefs, resolvers } = schemas;
 
+const serverListen = async (PORT) => {
+  httpServer.listen({ port: PORT })
 
-const server = new ApolloServer({
-  // The GraphQL schema
-  typeDefs,
-  // A map of functions which return data for the schema.
-  resolvers,
-  plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
-});
+  return console.log(`🚀 Server ready at ${{PORT}}`);
+}
 
+const StartApolloServer = async () => {
+  
+  console.log(`Starting Server`);
 
-
-const StartApolloServer = async (runDBClient, server) => {
-  await runDBClient().catch(console.dir);
+  const server = new ApolloServer({
+    // The GraphQL schema
+    typeDefs,
+    // A map of functions which return data for the schema.
+    resolvers,
+    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+  });
 
   await server.start().catch(console.dir);
 
@@ -39,13 +43,12 @@ const StartApolloServer = async (runDBClient, server) => {
       context: authMiddleware,
     })
   );
-
-  await new Promise((resolve) => httpServer.listen({ port: PORT }, resolve));
-
-  return console.log(`🚀 Server ready at ${{PORT}}`);
 };
 
-StartApolloServer(runDBClient, server);
+console.log(`Starting Database`);
+runDBClient();
+StartApolloServer();
+serverListen(PORT);
 
 export default StartApolloServer;
 
