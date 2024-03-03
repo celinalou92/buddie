@@ -9,15 +9,18 @@ import { schemas } from "./schemas/index.js";
 import { authMiddleware } from "./utils/auth.js";
 import { runDBClient } from "./connection/index.js";
 
-
 const PORT = process.env.PORT;
 const app = express();
 const httpServer = http.createServer(app);
 const { typeDefs, resolvers } = schemas;
 
 const serverListen = async (PORT) => {
-  httpServer.listen({ port: PORT })
-}
+  httpServer.listen({ port: PORT });
+  if (!PORT) {
+    throw new Error("Not Port Set!");
+  }
+  return console.log("🚀 Server ready at port: ", PORT);
+};
 
 const StartApolloServer = async () => {
   
@@ -31,7 +34,7 @@ const StartApolloServer = async () => {
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   });
 
-  await server.start().catch(console.dir);
+  await server.start().catch((error) => console.log(error.message));
 
   app.use(
     cors(),
@@ -40,15 +43,11 @@ const StartApolloServer = async () => {
       context: authMiddleware,
     })
   );
-  return console.log(`🚀 Server ready at ${PORT}`);
+
+  await serverListen(PORT);
+  await runDBClient();
 };
 
-runDBClient();
 StartApolloServer();
-serverListen(PORT);
 
 export default StartApolloServer;
-
-
-
-
