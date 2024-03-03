@@ -23,7 +23,6 @@ const serverListen = async (PORT) => {
 };
 
 const StartApolloServer = async () => {
-  
   console.log(`Starting Server`);
 
   const server = new ApolloServer({
@@ -43,11 +42,10 @@ const StartApolloServer = async () => {
       context: authMiddleware,
     })
   );
-
-  await serverListen(PORT);
   await runDBClient();
 };
 
 StartApolloServer();
+serverListen(PORT);
 
 export default StartApolloServer;
