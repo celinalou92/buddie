@@ -34,18 +34,19 @@ const StartApolloServer = async () => {
   });
 
   await server.start().catch((error) => console.log(error.message));
-
   app.use(
     cors(),
     bodyParser.json(),
     expressMiddleware(server, {
       context: authMiddleware,
     })
-  );
+    );
+    server.requestTimeout = 5000;
 };
 
 runDBClient();
 StartApolloServer();
 serverListen(PORT);
+
 
 export default StartApolloServer;
