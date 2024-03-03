@@ -10,14 +10,13 @@ import { authMiddleware } from "./utils/auth.js";
 import { runDBClient } from "./connection/index.js";
 
 
-const PORT = process.env.PORT || 4000;
+const PORT = 4000;
 const app = express();
 const httpServer = http.createServer(app);
 const { typeDefs, resolvers } = schemas;
 
 const serverListen = async (PORT) => {
   httpServer.listen({ port: PORT })
-  return console.log(`🚀 Server ready at ${PORT}`);
 }
 
 const StartApolloServer = async () => {
@@ -41,6 +40,7 @@ const StartApolloServer = async () => {
       context: authMiddleware,
     })
   );
+  return console.log(`🚀 Server ready at ${PORT}`);
 };
 
 runDBClient();
