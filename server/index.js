@@ -10,7 +10,7 @@ import { authMiddleware } from "./utils/auth.js";
 import { runDBClient } from "./connection/index.js";
 
 
-const PORT = 4000;
+const PORT = process.env.PORT;
 const app = express();
 const httpServer = http.createServer(app);
 const { typeDefs, resolvers } = schemas;
