@@ -9,7 +9,7 @@ import { schemas } from "./schemas/index.js";
 import { authMiddleware } from "./utils/auth.js";
 import { runDBClient } from "./connection/index.js";
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 4000;
 const app = express();
 const httpServer = http.createServer(app);
 const { typeDefs, resolvers } = schemas;
