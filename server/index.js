@@ -42,9 +42,9 @@ const StartApolloServer = async () => {
       context: authMiddleware,
     })
   );
-  await runDBClient();
 };
 
+runDBClient();
 StartApolloServer();
 serverListen(PORT);
 
