@@ -5,48 +5,47 @@ import express from "express";
 import http from "http";
 import cors from "cors";
 import bodyParser from "body-parser";
-import { schemas } from "./schemas/index.js";
-import { authMiddleware } from "./utils/auth.js";
-import { runDBClient } from "./connection/index.js";
+import { schemas } from "../schemas/index.js";
+import { authMiddleware } from "../utils/auth.js";
+import { runDBClient } from "../connection/index.js";
 
-const PORT = process.env.PORT || 4000;
 const app = express();
-const httpServer = http.createServer(app);
+export const httpServer = http.createServer(app);
 const { typeDefs, resolvers } = schemas;
+const PORT = process.env.PORT || 4000;
 
-const serverListen = async (PORT) => {
+const serverListen = (PORT) => {
   httpServer.listen({ port: PORT });
   if (!PORT) {
-    throw new Error("Not Port Set!");
+    throw new Error("No Port Set!");
   }
-  return console.log("🚀 Server ready at port: ", PORT);
+  return console.log("🚀 Apollo Server ready at port: ", PORT);
 };
 
 const StartApolloServer = async () => {
-  console.log(`Starting Server`);
-
+  console.log(`Starting Apollo Server`);
   const server = new ApolloServer({
     // The GraphQL schema
     typeDefs,
     // A map of functions which return data for the schema.
     resolvers,
+    playground: true,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   });
-
   await server.start().catch((error) => console.log(error.message));
+  
   app.use(
+    "/",
     cors(),
     bodyParser.json(),
     expressMiddleware(server, {
       context: authMiddleware,
     })
-    );
-    server.requestTimeout = 5000;
+);
 };
 
 runDBClient();
 StartApolloServer();
 serverListen(PORT);
-
 
 export default StartApolloServer;
