@@ -17,7 +17,7 @@ import Signup from './pages/Signup';
 import Taskboard from './pages/Taskboard';
 import SingleMessage from "./pages/SingleMessage";
 
-const httpLink = new HttpLink({ uri: process.env.BUDDIE_BACKEND_API || 'http://localhost:4000' });
+const httpLink = new HttpLink({ uri: process.env.REACT_APP_BUDDIE_BACKEND_API });
 
 let token = localStorage.getItem("id_token");
 
@@ -29,6 +29,7 @@ const authMiddleware = new ApolloLink((operation, forward) => {
       authorization: token ? token : " ",
     }
   }));
+
   return forward(operation);
 })
 
