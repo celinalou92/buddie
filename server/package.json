@@ -5,7 +5,7 @@
   "main": "api/index.js",
   "scripts": {
     "start": "node api/index.js",
-    "watch": "nodemon",
+    "watch": "nodemon api/index.js",
     "seed": "node seeders/seeds.js"
   },
   "type": "module",
@@ -25,7 +25,6 @@
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.2",
-    "dotenv": "^16.3.1",
-    "nodemon": "^2.0.3"
+    "dotenv": "^16.3.1"
   }
 }
