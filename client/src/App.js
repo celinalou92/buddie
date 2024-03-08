@@ -16,6 +16,7 @@ import NoMatch from './pages/NoMatch';
 import Signup from './pages/Signup';
 import Taskboard from './pages/Taskboard';
 import SingleMessage from "./pages/SingleMessage";
+import Password from "./pages/Password";
 
 const httpLink = new HttpLink({ uri: process.env.REACT_APP_BUDDIE_BACKEND_API });
 
@@ -47,6 +48,7 @@ function App() {
           <Header />
           <div className="container">
             <Switch>
+              <Route exact path="/password" component={Password} />
               <Route exact path="/dashboard" component={Home} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/signup" component={Signup} />
