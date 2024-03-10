@@ -6,6 +6,12 @@ import { signToken } from "../utils/auth.js";
 const { User, Task, Message } = models;
 const resolvers = {
   Query: {
+    applicationPassword: async (_, __, context) => {
+      if (context.applicationPassword) {
+        return true;
+      }
+      throw new Error("Please Enter the Application Password");
+    },
     // authentication
     // must define context in server.js for this to work
     // use utils middleware to add logic
@@ -33,7 +39,7 @@ const resolvers = {
       return Task.findOne({ _id });
     },
     // -------------- get all users -------------- //
-    users: async () => {
+    users: async (context) => {
       return User.find()
         // .select("-__v -password")
         .populate("friends")
@@ -65,7 +71,7 @@ const resolvers = {
 
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
-
+      console.log()
       if (!user) {
         throw new Error("Incorrect credentials: No user associated to this email");
       }

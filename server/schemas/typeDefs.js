@@ -1,6 +1,7 @@
 // create our typeDefs
 const typeDefs = `#graphql
   type Query {
+    applicationPassword: Boolean
     me: User
     users: [User]
     user(username: String!): User

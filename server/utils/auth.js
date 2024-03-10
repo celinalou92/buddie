@@ -13,6 +13,7 @@ export function signToken({ username, email, _id }) {
 export function authMiddleware({ req }) {
   // allows token to be sent via req.body, req.query, or headers
   let token = req.headers.authorization;
+  const appPassword = req.headers.applicationpassword;
 
   if (!token) {
     return req;
@@ -26,6 +27,6 @@ export function authMiddleware({ req }) {
     return vt;
   });
   req.user = verifyToken;
-  const loginContext = req.user;
+  const loginContext = {...req.user, applicationPassword:appPassword};
   return loginContext;
 };
