@@ -37,6 +37,7 @@ const typeDefs = `#graphql
     podID: [Pod]
     friendCount: Int
     tasks: [Task]
+    messages: [Message]
     friends: [User]
   }
 

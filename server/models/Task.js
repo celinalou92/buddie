@@ -2,7 +2,7 @@ import { Schema, model } from 'mongoose';
 import dateFormatter from '../utils/dateFormat.js';
 
 
-const taskSchema = new Schema(
+export const taskSchema = new Schema(
     {
         taskText: {
             type: String,

@@ -1,5 +1,7 @@
 import { Schema, model } from 'mongoose';
 import { hash, compare } from 'bcrypt';
+import {taskSchema} from './Task.js';
+import{messageSchema} from'./Message.js';
 
 const userSchema = new Schema(
   {
@@ -34,18 +36,8 @@ const userSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'Pod'
     },
-    tasks: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Task'
-      }
-    ],
-    messages: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Message'
-      }
-    ],
+    tasks: [taskSchema],
+    messages: [messageSchema],
     friends: [
       {
         type: Schema.Types.ObjectId,

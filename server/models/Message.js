@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 import replySchema from "./Reply.js";
 import dateFormatter from "../utils/dateFormat.js";
 
-const messageSchema = new Schema(
+export const messageSchema = new Schema(
   {
     messageText: {
       type: String,
@@ -19,7 +19,7 @@ const messageSchema = new Schema(
       type: String,
       required: true,
     },
-    // replies: [replySchema],
+    replies: [replySchema]
   },
   {
     toJSON: {
