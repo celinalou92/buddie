@@ -6,7 +6,7 @@ export const taskSchema = new Schema(
     {
         taskText: {
             type: String,
-            required: true,
+            // required: true,
             maxlength: 280
         },
         podID: {

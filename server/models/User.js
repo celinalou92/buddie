@@ -37,13 +37,7 @@ const userSchema = new Schema(
       ref: 'Pod'
     },
     tasks: [taskSchema],
-    messages: [messageSchema],
-    friends: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-      }
-    ]
+    messages: [messageSchema]
   },
   {
     toJSON: {
@@ -58,7 +52,6 @@ userSchema.pre('save', async function(next) {
     const saltRounds = 10;
     this.password = await hash(this.password, saltRounds);
   }
-  next();
 });
 
 // compare the incoming password with the hashed password
@@ -66,9 +59,9 @@ userSchema.methods.isCorrectPassword = async function(password) {
   return compare(password, this.password);
 };
 
-userSchema.virtual('friendCount').get(function() {
-  return this.friends.length;
-});
+// userSchema.virtual('friendCount').get(function() {
+//   return this.friends.length;
+// });
 
 const User = model('User', userSchema);
 

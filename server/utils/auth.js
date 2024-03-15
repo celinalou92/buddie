@@ -1,10 +1,10 @@
 import jwt from "jsonwebtoken"
+import { hash } from 'bcrypt';
 
 const secret = 'mysecretsshhhhh';
 const expiration = '24hr';
 
 export function signToken({ username, email, _id }) {
-  
   const payload = { username, email, _id };
 
   return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
@@ -15,8 +15,8 @@ export function authMiddleware({ req }) {
   let token = req.headers.authorization;
   const appPassword = req.headers.applicationpassword;
 
-  if (!token) {
-    return req;
+  if (!token || req.body.operationName === "AddUser") {
+    return req.body;
   }
 
   // decode and attach user data to request object
