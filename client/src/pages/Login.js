@@ -2,21 +2,16 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutations";
 import Auth from "../utils/auth";
-import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Link from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import { Typography, Link, Grid, Button, Box } from "@material-ui/core";
 
-const Login = (props) => {
+const Login = () => {
   const [formState, setFormState] = useState({ email: "", password: "" });
 
-  const [login, { error }] = useMutation(LOGIN_USER);
+  const [login, { loading, error }] = useMutation(LOGIN_USER);
   // update state based on form input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -64,6 +59,11 @@ const Login = (props) => {
     <Container component="main" maxWidth="xs" className="credCards">
       <CssBaseline />
       <div className={classes.paper}>
+      {loading ? (
+          <Box height={"10em"} display="flex" justifyContent={"center"} alignItems={"center"}>
+            <Typography variant="h5">Loading...</Typography>
+          </Box>
+        ) : (
         <form className={classes.form} noValidate onSubmit={handleFormSubmit}>
           <TextField
             variant="outlined"
@@ -115,6 +115,7 @@ const Login = (props) => {
             </Grid>
           </Grid>
         </form>
+        )}
       </div>
     </Container>
   );

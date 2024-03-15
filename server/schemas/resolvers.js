@@ -134,11 +134,11 @@ const resolvers = {
 
         await task.save();
 
-        // await User.findOneAndUpdate(
-        //   { _id: userData._id },
-        //   { $push: { tasks: task._id } },
-        //   { new: true }
-        // );
+        await User.findOneAndUpdate(
+          { _id: userData._id },
+          { $push: { tasks: task._id } },
+          { new: true }
+        );
 
         return task;
       }
