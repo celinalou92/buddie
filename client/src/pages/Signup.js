@@ -68,106 +68,103 @@ const Signup = () => {
   return (
     <Container component="main" maxWidth="xs" className="credCardsSignup">
       <div className={classes.paper}>
-        {loading ? (
-          <Box height={"10em"} display="flex" justifyContent={"center"} alignItems={"center"}>
-            <Typography variant="h5">Loading...</Typography>
-          </Box>
-        ) : (
-          <>
-            <form
-              className={classes.form}
-              noValidate
-              onSubmit={handleFormSubmit}
-            >
-              <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    autoComplete="fname"
-                    name="first_name"
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="first_name"
-                    label="First Name"
-                    autoFocus
-                    onChange={handleChange}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="last_name"
-                    label="Last Name"
-                    name="last_name"
-                    autoComplete="lname"
-                    onChange={handleChange}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={12}>
-                  <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="username"
-                    label="User Name"
-                    name="username"
-                    autoComplete="uname"
-                    onChange={handleChange}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="email"
-                    label="Email Address"
-                    name="email"
-                    autoComplete="email"
-                    onChange={handleChange}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    type="password"
-                    id="password"
-                    autoComplete="current-password"
-                    onChange={handleChange}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    className={classes.submit}
-                  >
-                    Sign Up
-                  </Button>
-                </Grid>
-                <Grid item xs={12}>
-                  {error && <div>Sign up failed</div>}
-                </Grid>
-              </Grid>
+        <form className={classes.form} noValidate onSubmit={handleFormSubmit}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                autoComplete="fname"
+                name="first_name"
+                variant="outlined"
+                required
+                fullWidth
+                id="first_name"
+                label="First Name"
+                autoFocus
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="last_name"
+                label="Last Name"
+                name="last_name"
+                autoComplete="lname"
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12} sm={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="username"
+                label="User Name"
+                name="username"
+                autoComplete="uname"
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                Sign Up
+              </Button>
+            </Grid>
+            <Grid item xs={12}>
+              {error && <div>Sign up failed</div>}
+              {loading ? (
+                <div>
+                  {` 
+              Loading...
+              `}
+                </div>
+              ) :
               <Grid container justifyContent="flex-end">
-                <Grid item>
-                  <Link href="/login" variant="body2">
-                    Already have an account? Log in
-                  </Link>
-                </Grid>
+              <Grid item>
+                <Link href="/login" variant="body2">
+                  Already have an account? Log in
+                </Link>
               </Grid>
-            </form>
-            <br />
-          </>
-        )}
+            </Grid>
+            }
+            </Grid>
+          </Grid>
+
+        </form>
+        <br />
       </div>
       <CssBaseline />
     </Container>

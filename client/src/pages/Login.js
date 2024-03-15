@@ -30,7 +30,7 @@ const Login = () => {
       const { data } = await login({
         variables: { ...formState },
       });
-  
+
       Auth.handleLogin(data.login.token);
     } catch (error) {
       return error;
@@ -59,11 +59,6 @@ const Login = () => {
     <Container component="main" maxWidth="xs" className="credCards">
       <CssBaseline />
       <div className={classes.paper}>
-      {loading ? (
-          <Box height={"10em"} display="flex" justifyContent={"center"} alignItems={"center"}>
-            <Typography variant="h5">Loading...</Typography>
-          </Box>
-        ) : (
         <form className={classes.form} noValidate onSubmit={handleFormSubmit}>
           <TextField
             variant="outlined"
@@ -98,6 +93,13 @@ const Login = () => {
             `}
             </div>
           )}
+          {loading && (
+            <div>
+              {` 
+              Loading...
+              `}
+            </div>
+          )}
           <Button
             type="submit"
             fullWidth
@@ -115,7 +117,6 @@ const Login = () => {
             </Grid>
           </Grid>
         </form>
-        )}
       </div>
     </Container>
   );
