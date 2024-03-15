@@ -51,10 +51,10 @@ const Login = (props) => {
     },
     form: {
       width: "100%", // Fix IE 11 issue.
-      marginTop: theme.spacing(1),
+      marginTop: theme.spacing(3),
     },
     submit: {
-      margin: theme.spacing(3, 0, 2),
+      margin: theme.spacing(5, 0, 2),
     },
   }));
 
@@ -91,10 +91,6 @@ const Login = (props) => {
             value={formState.password}
             onChange={handleChange}
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
           {error && (
             <div>
               {`
@@ -112,11 +108,6 @@ const Login = (props) => {
             LOG IN
           </Button>
           <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
             <Grid item>
               <Link href="/signup" variant="body2">
                 {"Don't have an account? Sign Up"}
@@ -125,7 +116,6 @@ const Login = (props) => {
           </Grid>
         </form>
       </div>
-      <Box mt={8}></Box>
     </Container>
   );
 };

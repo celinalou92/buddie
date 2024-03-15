@@ -35,10 +35,10 @@ const Signup = () => {
     console.log({ formState });
     // use try/catch instead of promises to handle errors
     try {
-      const { data } = await addUser({
+      await addUser({
         variables: { ...formState },
       });
-      console.log(data)
+
       window.location.assign('/login');
     } catch (e) {
       console.error(e);
@@ -146,15 +146,6 @@ const Signup = () => {
               {error && <div>Sign up failed</div>}
             </Grid>
           </Grid>
-          {/* <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Sign Up
-          </Button> */}
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link href="/login" variant="body2">
@@ -163,6 +154,7 @@ const Signup = () => {
             </Grid>
           </Grid>
         </form>
+              <br/>
       </div>
     </Container>
   );
