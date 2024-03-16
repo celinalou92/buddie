@@ -1,15 +1,8 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../utils/mutations";
-import Auth from "../utils/auth";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import Link from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import { Typography, Box } from "@material-ui/core";
+import {Container, Button, CssBaseline, TextField, Link, Grid} from "@material-ui/core";
 
 const Signup = () => {
   const [addUser, { error, loading }] = useMutation(ADD_USER);
@@ -35,7 +28,6 @@ const Signup = () => {
   // submit form (notice the async!)
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log({ formState });
     // use try/catch instead of promises to handle errors
     try {
       await addUser({
@@ -162,7 +154,6 @@ const Signup = () => {
             }
             </Grid>
           </Grid>
-
         </form>
         <br />
       </div>
