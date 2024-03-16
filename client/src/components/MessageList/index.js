@@ -1,28 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// import Button from "@material-ui/core/Button";
-// import CssBaseline from "@material-ui/core/CssBaseline";
-// import TextField from "@material-ui/core/TextField";
-// import FormControlLabel from "@material-ui/core/FormControlLabel";
-// import Checkbox from "@material-ui/core/Checkbox";
 import Grid from "@material-ui/core/Grid";
-// import Box from "@material-ui/core/Box";
-// import Typography from "@material-ui/core/Typography";
-// import { makeStyles } from "@material-ui/core/styles";
-// import Container from "@material-ui/core/Container";
-// import Card from "@material-ui/core/Card";
-// import CardContent from "@material-ui/core/CardContent";
 import ChatIcon from "@material-ui/icons/Chat";
 import PersonIcon from "@material-ui/icons/Person";
+import { QUERY_MESSAGES } from "../../utils/queries";
+import { useQuery } from "@apollo/client";
 
-const MessageList = ({ messages, title }) => {
+const MessageList = () => {
+  const { data } = useQuery(QUERY_MESSAGES);
+
+  const messages = data?.messages || [];
+
   if (!messages.length) {
     return <h3>Start the conversation</h3>;
   }
 
   return (
     <div>
-
       {messages &&
         messages.map((message) => (
           <div key={message._id} className="">
