@@ -45,16 +45,17 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div className="flex-column justify-flex-start min-100-vh">
-          <Header />
+          {/* <Header /> */}
           <div className="container">
             <Switch>
+              <Route exact path="/" component={Password} />
               <Route exact path="/password" component={Password} />
               <Route exact path="/dashboard" component={Home} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/signup" component={Signup} />
               <Route exact path="/taskboard" component={Taskboard} />
               <Route exact path="/message/:id" component={SingleMessage} />
-              <Route exact path="/" component={Login} />
+              {/* <Route exact path="/" component={Login} /> */}
               <Route component={NoMatch} />
             </Switch>
           </div>

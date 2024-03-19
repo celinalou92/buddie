@@ -13,6 +13,7 @@ import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Typography } from "@material-ui/core";
+import DemoVideo from "../components/DemoVideo";
 
 const Password = (props) => {
   const [formState, setFormState] = useState({ password: "" });
@@ -51,65 +52,68 @@ const Password = (props) => {
   const classes = useStyles();
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="md">
       <CssBaseline />
       <div className={classes.paper}>
-        <form className={classes.form} noValidate onSubmit={handleFormSubmit}>
-          <Typography align="center" variant="h5">
-            Hello welcome to Buddie!
-          </Typography>
-          <br />
-          <Typography align="center">
-            A password is required to use this application.
-          </Typography>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="applicationPassword"
-            label="Application Password"
-            type="applicationPassword"
-            id="applicationPassword"
-            autoComplete="current-application-password"
-            value={formState.password}
-            onChange={handleChange}
-          />
-          <Typography align="center" variant="caption">
-            The backend server times out after inactivity and takes 90 seconds
-            to warm up.
-          </Typography>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            className={classes.submit}
-            color="primary"
-          >
-            Submit and Warm Up Server
-          </Button>
-          <Grid container>
-            <Grid item>
-              <Typography align="center" variant="subtitle2">
-                Don't have a password?
+      {
+        true? 
+        <DemoVideo/> :
+            <form className={classes.form} noValidate onSubmit={handleFormSubmit}>
+              <Typography align="center" variant="h5">
+                Hello welcome to Buddie!
               </Typography>
-              <Typography align="center" variant="subtitle2">
-                You can find a password in the Buddie project description on my
-                portfolio:
+              <br />
+              <Typography align="center">
+                A password is required to use this application.
               </Typography>
-              <Link
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://www.louissaint.me/#projects"
-                variant="h5"
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="applicationPassword"
+                label="Application Password"
+                type="applicationPassword"
+                id="applicationPassword"
+                autoComplete="current-application-password"
+                value={formState.password}
+                onChange={handleChange}
+              />
+              <Typography align="center" variant="caption">
+                The backend server times out after inactivity and takes 90 seconds
+                to warm up.
+              </Typography>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                className={classes.submit}
+                color="primary"
               >
-                louissaint.me
-              </Link>
-            </Grid>
-          </Grid>
-        </form>
+                Submit and Warm Up Server
+              </Button>
+              <Grid container>
+                <Grid item>
+                  <Typography align="center" variant="subtitle2">
+                    Don't have a password?
+                  </Typography>
+                  <Typography align="center" variant="subtitle2">
+                    You can find a password in the Buddie project description on my
+                    portfolio:
+                  </Typography>
+                  <Link
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://www.louissaint.me/#projects"
+                    variant="h5"
+                  >
+                    louissaint.me
+                  </Link>
+                </Grid>
+              </Grid>
+            </form>
+          }
       </div>
-      <Box mt={8}></Box>
     </Container>
   );
 };
