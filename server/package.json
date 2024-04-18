@@ -6,7 +6,11 @@
   "scripts": {
     "start": "node api/index.js",
     "watch": "nodemon api/index.js",
-    "seed": "node seeders/seeds.js"
+    "seed": "node seeders/seeds.js",
+    "dropC": "node connection/dropCollection.js",
+    "mongoStart": "brew services start mongodb-community@7.0 serviceCheck",
+    "mongoStop": "brew services stop mongodb-community@7.0 serviceCheck",
+    "serviceCheck": "brew services list"
   },
   "type": "module",
   "keywords": [],
@@ -24,6 +28,7 @@
     "rxjs": "^7.8.1"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@types/jsonwebtoken": "^9.0.2",
     "dotenv": "^16.3.1"
   }

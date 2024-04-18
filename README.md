@@ -31,7 +31,10 @@ This application is a social media platform that allows users to manage their ho
   
     ```npm run start ```
 
-
+# Running MongoDB locally
+https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-os-x/
+https://www.mongodb.com/docs/mongodb-shell/reference/configure-shell-settings/#std-label-mongosh-shell-settings
+https://reflectoring.io/tutorial-graphql-apollo-server-nodejs-mongodb/
 
 ## Deployed App
 https://buddie-inky.vercel.app/

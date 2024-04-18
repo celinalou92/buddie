@@ -5,8 +5,7 @@ import mongoose from 'mongoose';
 const clusterName = process.env.CLUSTER_NAME;
 const dbUserName = process.env.DB_USERNAME;
 
-
-const dbURI = process.env.MONGODB_URI
+const dbURI = process.env.MONGODB_URI || process.env.MONGODB_LOCAL
 
 
 export const runDBClient = async() => {
@@ -23,6 +22,7 @@ export const runDBClient = async() => {
       Database Connected!
       Cluster:${clusterName} 
       User: ${dbUserName}
+      Location: ${dbURI}
       =======================
       `
       )
@@ -37,5 +37,5 @@ export const runDBClient = async() => {
       )
       return error;
   }
-}
+};
 

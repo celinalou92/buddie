@@ -27,6 +27,7 @@ export function authMiddleware({ req }) {
     return vt;
   });
   req.user = verifyToken;
-  const loginContext = {...req.user, applicationPassword:appPassword};
+  const loginContext = {verifyToken, applicationPassword:appPassword};
+  console.log("loginContext====================",loginContext)
   return loginContext;
 };
