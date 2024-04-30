@@ -16,15 +16,18 @@ const resolvers = {
     // must define context in server.js for this to work
     // use utils middleware to add logic
     me: async (parent, args, context) => {
-      if (context.user) {
-        const userData = await User.findOne({ _id: context.user._id })
-          .select("-__v -password")
-          .populate("tasks");
-        // .populate("friends");
-
-        return userData;
+      const userData = context.data;
+      try {
+        if (userData) {
+          const meData = await User.findOne({ _id: userData._id })
+            .select("-__v -password")
+            .populate("tasks");
+          // .populate("friends");
+          return meData;
+        }
+      } catch (e) {
+        throw new Error("Not logged in", console.log(e));
       }
-      throw new Error("Not logged in");
     },
     // -------- get all tasks ------ //
     tasks: async () => {
@@ -98,10 +101,7 @@ const resolvers = {
           username: userData.username,
         });
 
-        await User.findOneAndUpdate(
-          { _id: userData._id },
-          { new: true }
-        );
+        await User.findOneAndUpdate({ _id: userData._id }, { new: true });
         return message;
       }
       throw new Error("You need to be logged in!");
